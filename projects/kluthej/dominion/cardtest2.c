@@ -36,10 +36,8 @@ int main() {
 	int testPlayer;
 	
 	int handPos = 0;
-
-	int testHand[MAX_HAND];
 	
-	int i, j, k;
+	int i;
 
 	printf("Testing card Adventurer.\n");
 
@@ -56,7 +54,7 @@ int main() {
 
 	//play adventurer
 	if(playCard(handPos, 0, 0, 0, testGame) != 0)
-		printf("Failed to play card with playCard().\n");;
+		printf("Failed to play card with playCard().\n");
 
 	//testPlayer should now have previous hand size + 1 cards in hand
 	if(VERBOSE) {

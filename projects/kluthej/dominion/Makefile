@@ -49,28 +49,18 @@ cardtest4: cardtest4.c dominion.o rngs.o
 	gcc -o cardtest4 -g cardtest4.c dominion.o rngs.o $(CFLAGS)
 
 unittestresults.out: unittest1 unittest2 unittest3 unittest4 cardtest1 cardtest2 cardtest3 cardtest4
-	./unittest1 &> unittestresult.out
-	gcov dominion.c >> unittestresult.out
+	touch unittestresult.out
+	truncate -s0 unittestresult.out	
+	./unittest1 >> unittestresult.out
+	./unittest2 >> unittestresult.out
+	./unittest3 >> unittestresult.out
+	./unittest4 >> unittestresult.out
+	./cardtest1 >> unittestresult.out
+	./cardtest2 >> unittestresult.out
+	./cardtest3 >> unittestresult.out
+	./cardtest4 >> unittestresult.out
+	gcov -b -f dominion.o >> unittestresult.out
 	cat dominion.c.gcov >> unittestresult.out
-	./unittest2 &> unittestresult.out
-	gcov dominion.c >> unittestresult.out
-	cat dominion.c.gcov >> unittestresult.out
-	./unittest3 &> unittestresult.out
-	gcov dominion.c >> unittestresult.out
-	cat dominion.c.gcov >> unittestresult.out
-	./unittest4 &> unittestresult.out
-	gcov dominion.c >> unittestresult.out
-	cat dominion.c.gcov >> unittestresult.out
-	./cardtest1 &> unittestresult.out
-	gcov dominion.c >> unittestresult.out
-	cat dominion.c.gcov >> unittestresult.out
-	./cardtest2 &> unittestresult.out
-	gcov dominion.c >> unittestresult.out
-	cat dominion.c.gcov >> unittestresult.out
-	./cardtest3 &> unittestresult.out
-	gcov dominion.c >> unittestresult.out
-	cat dominion.c.gcov >> unittestresult.out
-	./cardtest4 &> unittestresult.out
 	gcov dominion.c >> unittestresult.out
 	cat dominion.c.gcov >> unittestresult.out
 
