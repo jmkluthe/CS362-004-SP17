@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <assert.h>
 
-int compare(const int* a, const int* b);
+int compare(const void* a, const void* b);
 
 int main () {
   struct gameState G;

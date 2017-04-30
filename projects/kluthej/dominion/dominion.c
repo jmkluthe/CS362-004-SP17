@@ -1208,10 +1208,12 @@ int playAdventurer(struct gameState *state) {
 		}
 	}
 	//replace good code with bug
+	//good code
     //while(z - 1 >= 0) {
-	//	state->discard[currentPlayer][state->discardCount[currentPlayer]++]=temphand[z-1]; // discard all cards in play that have been drawn
+	//	state->discard[currentPlayer][state->discardCount[currentPlayer]++]=temphand[z-1];  //discard all cards in play that have been drawn
 	//	z = z - 1;
     //}
+	//bug
     while(z >= 0) {
 		state->discard[currentPlayer][state->discardCount[currentPlayer]++]=temphand[z]; // discard all cards in play that have been drawn
 		z = z - 1;
@@ -1230,8 +1232,10 @@ int playSmithy(struct gameState *state, int handPos) {
 			
 	//discard card from hand
 	//replace good code with bug
-	//discardCard(handPos - 1, currentPlayer, state, 0);
-	discardCard(handPos, currentPlayer, state, 0);
+	//good code	
+	//discardCard(handPos, currentPlayer, state, 0);
+	//bug
+	discardCard(handPos - 1, currentPlayer, state, 0);
 	return 0;
 }
 
@@ -1316,7 +1320,9 @@ int playMinion(struct gameState *state, int handPos, int choice1, int choice2) {
 				
 	  //draw 4
 	  //replace good code with bug
+		//good code
 	  //for (i = 0; i < 4; i++)
+		//bug
 	  for (i = 0; i <= 4; i++)
 	    {
 	      drawCard(currentPlayer, state);
@@ -1365,7 +1371,9 @@ int playEmbargo(struct gameState *state, int handPos, int choice1) {
 			
       //trash card
       //replace good code with bug
+		//good code
       //discardCard(handPos, currentPlayer, state, 1);
+		//bug
       discardCard(handPos, currentPlayer, state, 0);		
       return 0;
 }
