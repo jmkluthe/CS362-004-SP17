@@ -247,19 +247,19 @@ int playCard(int handPos, int choice1, int choice2, int choice3, struct gameStat
 	
   //get card played
   card = handCard(handPos, state);
-	
+
   //check if selected card is an action
   if ( card < adventurer || card > treasure_map )
     {
       return -1;
     }
-	
+
   //play card
   if ( cardEffect(card, choice1, choice2, choice3, state, handPos, &coin_bonus) < 0 )
     {
       return -1;
     }
-	
+
   //reduce number of actions
   state->numActions--;
 
@@ -658,7 +658,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
   if (nextPlayer > (state->numPlayers - 1)){
     nextPlayer = 0;
   }
-  	
+
   //uses switch to select card and perform actions
   switch( card ) 
     {
@@ -1192,13 +1192,19 @@ int playAdventurer(struct gameState *state) {
 	int temphand[MAX_HAND];// moved above the if statement
 	int drawntreasure=0;
 	int cardDrawn;
-	
+
 	while(drawntreasure < 2) {
 		if(state->deckCount[currentPlayer] < 1) {//if the deck is empty we need to shuffle discard and add to deck
 			shuffle(currentPlayer, state);
 		}
+
+		//bug fix (section below doesn't deal with not enough treasures)
+		//if(drawCard(currentPlayer, state) == -1)
+		//	break;
+		//original code that doesn't check if deck + discard is empty
 		drawCard(currentPlayer, state);
 		cardDrawn = state->hand[currentPlayer][state->handCount[currentPlayer]-1];//top card of hand is most recently drawn card.
+	    //this section results in an infinite loop / segfault if there aren't enough treasures to draw
 		if (cardDrawn == copper || cardDrawn == silver || cardDrawn == gold)
 			drawntreasure++;
 		else {
@@ -1206,7 +1212,9 @@ int playAdventurer(struct gameState *state) {
 			state->handCount[currentPlayer]--; //this should just remove the top card (the most recently drawn one).
 			z++;
 		}
+		//end of section causing infinite loop segfault
 	}
+		  	
 	//replace good code with bug
 	//good code
     //while(z - 1 >= 0) {

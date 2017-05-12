@@ -64,6 +64,47 @@ unittestresults.out: unittest1 unittest2 unittest3 unittest4 cardtest1 cardtest2
 	gcov dominion.c >> unittestresult.out
 	cat dominion.c.gcov >> unittestresult.out
 
+randomtestcard1: randomtestcard1.c dominion.o rngs.o
+	gcc -o randomtestcard1 -g randomtestcard1.c dominion.o rngs.o $(CFLAGS)
+
+randomtestcard1.out: randomtestcard1
+	touch randomtestcard1.out
+	truncate -s0 randomtestcard1.out
+	./randomtestcard1 >> randomtestcard1.out
+	gcov -b -f dominion.o >> randomtestcard1.out
+	cat dominion.c.gcov >> randomtestcard1.out
+	gcov dominion.c >> randomtestcard1.out
+	cat dominion.c.gcov >> randomtestcard1.out
+
+randomtestcard2: randomtestcard2.c dominion.o rngs.o
+	gcc -o randomtestcard2 -g randomtestcard2.c dominion.o rngs.o $(CFLAGS)
+
+randomtestcard2.out: randomtestcard2
+	touch randomtestcard2.out
+	truncate -s0 randomtestcard2.out
+	./randomtestcard2 >> randomtestcard2.out
+	gcov -b -f dominion.o >> randomtestcard2.out
+	cat dominion.c.gcov >> randomtestcard2.out
+	gcov dominion.c >> randomtestcard2.out
+	cat dominion.c.gcov >> randomtestcard2.out
+
+randomtestcard3: randomtestcard3.c dominion.o rngs.o
+	gcc -o randomtestcard3 -g randomtestcard3.c dominion.o rngs.o $(CFLAGS)
+
+randomtestcard3.out: randomtestcard3
+	touch randomtestcard3.out
+	truncate -s0 randomtestcard3.out
+	./randomtestcard3 >> randomtestcard3.out
+	gcov -b -f dominion.o >> randomtestcard3.out
+	cat dominion.c.gcov >> randomtestcard3.out
+	gcov dominion.c >> randomtestcard3.out
+	cat dominion.c.gcov >> randomtestcard3.out
+
+randomtestcards: randomtestcard1 randomtestcard2 randomtestcard3
+	make randomtestcard1.out
+	make randomtestcard2.out
+	make randomtestcard3.out
+
 runtests: testDrawCard 
 	./testDrawCard &> unittestresult.out
 	gcov dominion.c >> unittestresult.out
@@ -79,4 +120,6 @@ all: playdom player
 
 clean:
 	rm -f *.o playdom.exe playdom test.exe test player player.exe testInit testInit.exe *.gcov *.gcda *.gcno *.so *test1 *test2 *test3 *test4
+	rm -f randomtestcard1 randomtestcard1.out randomtestcard2 randomtestcard2.out randomtestcard3 randomtestcard3.out
+
 
