@@ -14,7 +14,7 @@ Description: This runs random tests on the smithy card
 #include <string.h>
 
 //define NOISY 1 to print extra details about failures
-#define NOISY 1
+#define NOISY 0
 
 struct gameState* random_game_state(int *player, int *handPos, int card);
 

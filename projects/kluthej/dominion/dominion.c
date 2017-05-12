@@ -1199,10 +1199,10 @@ int playAdventurer(struct gameState *state) {
 		}
 
 		//bug fix (section below doesn't deal with not enough treasures)
-		//if(drawCard(currentPlayer, state) == -1)
-		//	break;
+		if(drawCard(currentPlayer, state) == -1)
+			break;
 		//original code that doesn't check if deck + discard is empty
-		drawCard(currentPlayer, state);
+		//drawCard(currentPlayer, state);
 		cardDrawn = state->hand[currentPlayer][state->handCount[currentPlayer]-1];//top card of hand is most recently drawn card.
 	    //this section results in an infinite loop / segfault if there aren't enough treasures to draw
 		if (cardDrawn == copper || cardDrawn == silver || cardDrawn == gold)
