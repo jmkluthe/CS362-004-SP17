@@ -1,0 +1,183 @@
+dominion.c bug report
+==============================
+
+Title: DOMINION-1: Bug in code for card "Adventurer"
+
+Class: Serious Bug
+
+Date: 2017.05.26        
+Reported By: Joshua Kluthe
+Email: kluthej@oregonstate.edu
+
+
+Product: dominion.c
+Platform: Ubuntu 16.04
+
+Is it reproducible: Yes
+
+Description
+===========
+
+When running a unit test and random test program against the "Adventurer" code 
+in dominion.c I found that after playing the card the resulting player hand size 
+was incorrect and the player did not draw enough treasure cards.
+
+Steps to Produce/Reproduce
+--------------------------
+
+Call the unit test program by using the make command "make unittestresults.out". 
+Call the random tests on the adventurer code by using the make command 
+"make randomtestcard1.out".
+
+Expected Results
+----------------
+
+The tests and expected values from the unit test are:
+Return value from the playCard() function, expected result of 0.
+Hand size after playing Adventurer, expected previous hand size + 1.
+Treasure cards in hand after playing Adventurer, expected previous value + 2.
+Treasure cards in playedCards pile, expected to be 0.
+Treasure cards in deck after playing adventurer, expected to be previous value - 2.
+
+The tests and expected values from the random tests are:
+Return value from playCard() expected to be 0.
+numActions expected to be previous value - 1.
+IF THERE ARE TWO TREASURES AVAILABLE TO DRAW:
+    handCount expected to be previous handCount + 1.
+    Treasures in hand expected to be previous value + 2.
+    Treasures in deck expected to be previous value - 2.
+IF THERE IS ONE TREASURES AVAILABLE TO DRAW:
+    handCount expected to be previous handCount + 0.
+    Treasures in hand expected to be previous value + 1.
+    Treasures in deck expected to be previous value - 1.
+IF THERE ARE NO TREASURES AVAILABLE TO DRAW:
+    handCount expected to be previous handCount - 1.
+    Treasures in hand expected to be previous value + 0.
+    Treasures in deck expected to be previous value - 0.
+
+Actual Results
+--------------
+
+Unit Test Results:
+Return value from playCard() == 0. PASS
+Hand size != previous value + 1. FAIL
+Treasure cards in hand != previous value + 2. FAIL.
+Treasure cards in playedCards pile == 0. PASS.
+Treasure cards in deck != previous value - 2. FAIL
+
+Random Test Results:
+Return value from playCard() ==0. PASS for all 10000 test cases.
+numActions == previous value - 1. PASS for all 10000 test cases.
+All other tests failed for all 10000 test cases.
+
+Workarounds
+-----------
+
+None.
+
+Attachments
+-----------
+
+Unit test program code location:
+CS362-004-SP17/projects/kluthej/sunxiao_dominion/cardtest2.c
+Random test program code location:
+CS362-004-SP17/projects/kluthej/sunxiao_dominion/randomtestcard1.c
+Makefile location:
+CS362-004-SP17/projects/kluthej/sunxiao_dominion/Makefile
+
+Other Information
+-----------------
+
+
+dominion.c bug report
+==============================
+
+Title: DOMINION-2: Bug in code for card "Smithy"
+
+Class: Serious Bug
+
+Date: 2017.05.26        
+Reported By: Joshua Kluthe
+Email: kluthej@oregonstate.edu
+
+
+Product: dominion.c
+Platform: Ubuntu 16.04
+
+Is it reproducible: Yes
+
+Description
+===========
+
+When running a unit test and random test program against the "Smithy" code 
+in dominion.c I found that after playing the card the resulting player hand size 
+was incorrect, the player hand contained the wrong cards, and the deck count 
+was incorrect.
+
+Steps to Produce/Reproduce
+--------------------------
+
+Call the unit test program by using the make command "make unittestresults.out". 
+Call the random tests on the smithy code by using the make command 
+"make randomtestcard3.out".
+
+Expected Results
+----------------
+
+The tests and expected values from the unit test are:
+Return value from the playCard() function, expected result of 0.
+After playing card, handCount expected to be previous value + 2.
+After building an array of cards containing the cards that should be in the 
+player hand after playing smithy and sorting it, it is compared to the actual 
+player hand, also sorted. The expected result from memcmp() is 0.
+After playing card, the player deckCount expected to be previous value - 3.
+After playing card, the playedCardCount expected to be previous value + 1.
+
+The tests and expected values from the random tests are:
+Return value from playCard() expected to be 0.
+IF THERE ARE THREE CARDS AVAILABLE TO DRAW:
+    handCount expected to be previous handCount + 2.
+    decKCount expected to be previous deckCount - 3.
+IF THERE ARE TWO CARDS AVAILABLE TO DRAW:
+    handCount expected to be previous handCount + 1.
+    decKCount expected to be previous deckCount - 2.
+IF THERE IS ONE CARD AVAILABLE TO DRAW:
+    handCount expected to be previous handCount + 0.
+    decLCount expected to be previous deckCount - 1.
+IF THERE NO CARDS AVAILABLE TO DRAW:
+    handCount expected to be previous handCount - 1.
+    decKCount expected to be previous deckCount - 0.
+
+Actual Results
+--------------
+
+Unit Test Results:
+Return value from playCard() == 0. PASS
+handCount != previous value + 2. FAIL
+Cards in hand != expected values. FAIL
+deckCount != previous value - 3. FAIL
+playedCardCount == previous value + 1.PASS
+
+Random Test Results:
+Return value from playCard() ==0. PASS for all 10000 test cases.
+All other tests failed for all 10000 test cases.
+
+Workarounds
+-----------
+
+None.
+
+Attachments
+-----------
+
+Unit test program code location:
+CS362-004-SP17/projects/kluthej/sunxiao_dominion/cardtest1.c
+Random test program code location:
+CS362-004-SP17/projects/kluthej/sunxiao_dominion/randomtestcard3.c
+Makefile location:
+CS362-004-SP17/projects/kluthej/sunxiao_dominion/Makefile
+
+Other Information
+-----------------
+
+
